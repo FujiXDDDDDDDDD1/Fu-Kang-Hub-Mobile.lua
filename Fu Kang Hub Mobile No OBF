@@ -1,5 +1,5 @@
 local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua"))()
-local window = DrRayLibrary:Load("Fu Kang Hub Mobile 👑", "Default")
+local window = DrRayLibrary:Load("Fu Kang Hub Mobile 🚬", "Default")
 
 local main = DrRayLibrary.newTab("Main", "ImageIdHere")
 
@@ -136,7 +136,7 @@ Dew.newToggle("Toggle Hyperspeed", "Fu Kang Hub", true, function(toggleState)
     end
 end)
 
-Dew.newButton("Noclip", "Fu Kang Hub", true, function()
+Dew.newButton("Noclip", "Fu Kang Hub", function()
     local Workspace = game:GetService("Workspace")
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
@@ -262,7 +262,7 @@ Toggle.MouseButton1Click:connect(function()
 end)
 end)
 
-Dew.newButton("Hitbox", "Fu Kang Hub", true, function()
+Dew.newButton("Hitbox", "Fu Kang Hub", function()
     _G.HeadSize = 10
     _G.Disabled = true
      
