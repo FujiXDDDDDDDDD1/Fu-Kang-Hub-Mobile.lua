@@ -1,0 +1,82 @@
+local Players = game:GetService("Players")
+local CoreGui = game:GetService("CoreGui")
+
+-- สร้าง UI
+local HitboxUI = Instance.new("ScreenGui", CoreGui)
+HitboxUI.Name = "HitboxUI"
+
+local BG = Instance.new("Frame", HitboxUI)
+BG.Size = UDim2.new(0, 200, 0, 100)
+BG.Position = UDim2.new(0.4, 0, 0.8, 0)
+BG.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+BG.BorderSizePixel = 2
+BG.Active = true
+BG.Draggable = true
+
+local Title = Instance.new("TextLabel", BG)
+Title.Size = UDim2.new(1, 0, 0, 30)
+Title.Text = "Hitbox Toggle"
+Title.BackgroundColor3 = Color3.fromRGB(60, 0, 120)
+Title.TextColor3 = Color3.new(1, 1, 1)
+Title.Font = Enum.Font.Highway
+Title.TextSize = 20
+
+local ToggleBtn = Instance.new("TextButton", BG)
+ToggleBtn.Size = UDim2.new(0.8, 0, 0, 35)
+ToggleBtn.Position = UDim2.new(0.1, 0, 0.45, 0)
+ToggleBtn.Text = "Toggle"
+ToggleBtn.Font = Enum.Font.Highway
+ToggleBtn.TextSize = 22
+ToggleBtn.BackgroundColor3 = Color3.fromRGB(60, 0, 120)
+ToggleBtn.TextColor3 = Color3.new(1, 1, 1)
+
+local StatusLabel = Instance.new("TextLabel", BG)
+StatusLabel.Size = UDim2.new(1, 0, 0, 20)
+StatusLabel.Position = UDim2.new(0, 0, 0.8, 0)
+StatusLabel.Text = "Status: Off"
+StatusLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+StatusLabel.BackgroundTransparency = 1
+StatusLabel.Font = Enum.Font.SourceSans
+StatusLabel.TextSize = 18
+
+-- ฟังก์ชัน Hitbox
+local hitboxEnabled = false
+local customSize = Vector3.new(20, 20, 20)
+local normalSize = Vector3.new(2, 2, 1)
+
+local function updateHitboxes(state)
+    hitboxEnabled = state
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= Players.LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+            pcall(function()
+                local part = player.Character.HumanoidRootPart
+                if state then
+                    part.Size = customSize
+                    part.Transparency = 0.7
+                    part.Material = Enum.Material.Neon
+                    part.BrickColor = BrickColor.new("Black")
+                    part.CanCollide = false
+                else
+                    part.Size = normalSize
+                    part.Transparency = 0
+                    part.Material = Enum.Material.Plastic
+                    part.BrickColor = BrickColor.new("Medium stone grey")
+                    part.CanCollide = true
+                end
+            end)
+        end
+    end
+end
+
+-- ปุ่ม Toggle
+ToggleBtn.MouseButton1Click:Connect(function()
+    hitboxEnabled = not hitboxEnabled
+    updateHitboxes(hitboxEnabled)
+    if hitboxEnabled then
+        StatusLabel.Text = "Status: On"
+        StatusLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+    else
+        StatusLabel.Text = "Status: Off"
+        StatusLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+    end
+end)
