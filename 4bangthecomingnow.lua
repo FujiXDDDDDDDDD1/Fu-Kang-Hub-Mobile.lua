@@ -555,29 +555,26 @@ end)
 
 local tp = DrRayLibrary.newTab("Teleport", "ImageIdHere")
 
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local closestMatch = nil
+players = {}
 
-tp.newTextbox("Player Name", "Type partial name", function(inputName)
-    local lowerInput = string.lower(inputName)
-    closestMatch = nil
-    for _, player in pairs(Players:GetPlayers()) do
-        if player ~= LocalPlayer then
-            if string.find(string.lower(player.Name), lowerInput) == 1 then
-                closestMatch = player
-                break
-            end
-        end
-    end
+for i,v in pairs(game:GetService("Players"):GetChildren()) do
+   table.insert(players,v.Name)
+end
+
+tp.newDropdown("Select Player", " ", players, function(abc)
+    Select = abc
 end)
 
-tp.newButton("Teleport", "Teleport to matched player", function()
-    if closestMatch and closestMatch.Character and closestMatch.Character:FindFirstChild("HumanoidRootPart") then
-        LocalPlayer.Character.HumanoidRootPart.CFrame = closestMatch.Character.HumanoidRootPart.CFrame
-    else
-        warn("No matching player found or target not ready.")
-    end
+
+tp.newButton("Refresh", " ", function()
+    table.clear(players)
+for i,v in pairs(game:GetService("Players"):GetChildren()) do
+   table.insert(players,v.Name)
+end
+end)
+
+tp.newButton("Teleport", " ", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Select].Character.HumanoidRootPart.CFrame
 end)
 
 tp.newLabel("== Da Hood Teleport ==")
