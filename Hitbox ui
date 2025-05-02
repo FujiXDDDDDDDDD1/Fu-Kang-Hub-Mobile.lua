@@ -39,7 +39,7 @@ StatusLabel.BackgroundTransparency = 1
 StatusLabel.Font = Enum.Font.SourceSans
 StatusLabel.TextSize = 18
 
--- ฟังก์ชัน Hitbox
+-- ฟังก์ชัน Hitbox ที่ปรับปรุงแล้ว
 local hitboxEnabled = false
 local customSize = Vector3.new(20, 20, 20)
 local normalSize = Vector3.new(2, 2, 1)
@@ -52,16 +52,16 @@ local function updateHitboxes(state)
                 local part = player.Character.HumanoidRootPart
                 if state then
                     part.Size = customSize
-                    part.Transparency = 0.7
+                    part.Transparency = 0.8 -- โปร่งใสแบบเห็นอยู่
                     part.Material = Enum.Material.Neon
-                    part.BrickColor = BrickColor.new("Black")
+                    part.BrickColor = BrickColor.new("Institutional white")
                     part.CanCollide = false
                 else
                     part.Size = normalSize
-                    part.Transparency = 0
+                    part.Transparency = 1 -- มองไม่เห็นเลย
                     part.Material = Enum.Material.Plastic
                     part.BrickColor = BrickColor.new("Medium stone grey")
-                    part.CanCollide = true
+                    part.CanCollide = false
                 end
             end)
         end
