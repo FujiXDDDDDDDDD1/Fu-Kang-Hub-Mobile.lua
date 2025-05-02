@@ -552,6 +552,10 @@ Tool.Unequipped:Connect(function()
 end)
 end)
 
+Dew.newButton("Hitbox UI", "Hitbox ui", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/FujiXDDDDDDDDD1/Fu-Kang-Hub-Mobile.lua/refs/heads/main/Hitbox%20ui'))()
+end)
+
 
 local tp = DrRayLibrary.newTab("Teleport", "ImageIdHere")
 
