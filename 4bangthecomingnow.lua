@@ -344,7 +344,8 @@ s.Spread = 0.146
 print("RTX On ละควาย")
 end)
 
-local hitboxEnabled = false
+
+    local hitboxEnabled = false
 local customSize = Vector3.new(20, 20, 20)
 local normalSize = Vector3.new(2, 2, 1)
 
@@ -551,32 +552,32 @@ Tool.Unequipped:Connect(function()
 end)
 end)
 
-Dew.newButton("Hitbox V2 (beta)", "ควย", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/RedJDarks/MAIN/refs/heads/main/HitboxExpander"))()
-end)
 
 local tp = DrRayLibrary.newTab("Teleport", "ImageIdHere")
 
-players = {}
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local closestMatch = nil
 
-for i,v in pairs(game:GetService("Players"):GetChildren()) do
-   table.insert(players,v.Name)
-end
-
-tp.newDropdown("Select Player", " ", players, function(abc)
-    Select = abc
+tp.newTextbox("Player Name", "Type partial name", function(inputName)
+    local lowerInput = string.lower(inputName)
+    closestMatch = nil
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer then
+            if string.find(string.lower(player.Name), lowerInput) == 1 then
+                closestMatch = player
+                break
+            end
+        end
+    end
 end)
 
-
-tp.newButton("Refresh", " ", function()
-    table.clear(players)
-for i,v in pairs(game:GetService("Players"):GetChildren()) do
-   table.insert(players,v.Name)
-end
-end)
-
-tp.newButton("Teleport", " ", function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Select].Character.HumanoidRootPart.CFrame
+tp.newButton("Teleport", "Teleport to matched player", function()
+    if closestMatch and closestMatch.Character and closestMatch.Character:FindFirstChild("HumanoidRootPart") then
+        LocalPlayer.Character.HumanoidRootPart.CFrame = closestMatch.Character.HumanoidRootPart.CFrame
+    else
+        warn("No matching player found or target not ready.")
+    end
 end)
 
 tp.newLabel("== Da Hood Teleport ==")
