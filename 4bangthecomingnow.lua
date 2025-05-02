@@ -3,7 +3,7 @@ local window = DrRayLibrary:Load("Fu Kang Hub Mobile", "Synapse")
 
 local main = DrRayLibrary.newTab("Test", "ImageIdHere")
 
-main.newButton("Update 27/4/68", "Hello!", function()
+main.newButton("Update 2/5/25", "Hello!", function()
     print('Hello!')
 end)
 
@@ -514,7 +514,7 @@ end)
 Dew.newButton("Tool Hyperspeed", "วิ่งเชง", function()
     -- Create Tool
 local Tool = Instance.new("Tool")
-Tool.Name = "วิ่งแบบพี่ตูน"
+Tool.Name = "Runaway"
 Tool.RequiresHandle = false
 Tool.Parent = game.Players.LocalPlayer.Backpack
 
@@ -549,6 +549,10 @@ Tool.Unequipped:Connect(function()
         Humanoid.WalkSpeed = _G.WS
     end
 end)
+end)
+
+Dew.newButton("Hitbox V2 (beta)", "ควย", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/RedJDarks/MAIN/refs/heads/main/HitboxExpander"))()
 end)
 
 local tp = DrRayLibrary.newTab("Teleport", "ImageIdHere")
